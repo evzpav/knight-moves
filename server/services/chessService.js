@@ -38,12 +38,12 @@ function ChessService() {
         return this.mapping[position] ? this.mapping[position] : "";
     }
 
-    possibleKnightMoves = (position) => {
-        if (!position || position.length < 2) {
+    possibleKnightMoves = (coordinatesInput) => {
+        if (!coordinatesInput || coordinatesInput.length < 2) {
             return [];
         }
 
-        let positionArray = position.split("");
+        let positionArray = coordinatesInput.split("");
         let x = parseInt(positionArray[0]);
         let y = parseInt(positionArray[1]);
         let xPositions = [x + 2, x - 2, x + 1, x - 1].filter(c => c >= 0 && c < 8);
@@ -98,12 +98,13 @@ function ChessService() {
         }
         let uniquePositions = [...new Set([].concat(...movesSecondTurn))];
         result["second_turn"] = uniquePositions;
+
         return result;
     }
 
     validatePosition = (position) => {
         let re = new RegExp('[A-H]{1}[1-8]{1}');
-        return re.exec(position);
+        return re.exec(position) ? true : false;
     }
 
     init = () => {

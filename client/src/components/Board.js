@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import config from '../config/config';
-import ReactLoading from 'react-loading';
+
 
 
 function Square(props) {

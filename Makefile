@@ -4,10 +4,10 @@
 NAME= knight-moves-server
 VERSION=1.0.0
 
-all: install build-front  ## Run pipeline
+all: install build-front run ## Run pipeline
 
 install: ## install server and client dependencies locally
-	 npm install
+	npm install
 	cd ./client && npm install
 
 build-front: ## run locally
