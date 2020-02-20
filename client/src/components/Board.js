@@ -38,11 +38,9 @@ class Board extends React.Component {
         }
     }
 
-    async handleClick(i, j) {
-        this.state.selected = i+j+""
-        console.log("CLIKE HERE: ", i + " " + j)
-        let position = i+""+j
-        const knightMoves = await getKnightMoves(position);
+    async handleClick(name) {
+          
+        const knightMoves = await getKnightMoves(name);
 
         console.log(knightMoves)
 
@@ -51,31 +49,52 @@ class Board extends React.Component {
     renderSquare(name, i, j) {
         return (
             <Square
-                value={this.state.squares[name]}
-                onClick={() => this.handleClick(i, j)}
+                value={name}
+                onClick={() => this.handleClick(name)}
                 x={i}
                 y={j}
-                key={i + "" + j}
+                key={name}
             />
         );
     }
 
-    renderBoard() {
-        let matrix = [];
-        for (let i = 0; i < 8; i++) {
-            let line = [];
-            for (let j = 0; j < 8; j++) {
-                line.push(this.renderSquare("name", i, j));
-            }
+    renderBoard(){
+        const xAxis = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+        const board = [];
 
-            matrix.push(
+        for (let i = 8; i > 0; i--) {
+            let line = [];
+            for (let j = 0; j < xAxis.length; j++) {
+                let fieldName = xAxis[j] + i
+                line.push(this.renderSquare(fieldName, i, j));
+
+            }
+            board.push(
                 <div className="board-row">
                     {line}
                 </div>
             )
         }
-        return matrix;
+
+        return board;
     }
+
+    // renderBoard() {
+    //     let matrix = [];
+    //     for (let i = 0; i < 8; i++) {
+    //         let line = [];
+    //         for (let j = 0; j < 8; j++) {
+    //             line.push(this.renderSquare("name", i, j));
+    //         }
+
+    //         matrix.push(
+    //             <div className="board-row">
+    //                 {line}
+    //             </div>
+    //         )
+    //     }
+    //     return matrix;
+    // }
 
     render() {
         return (
