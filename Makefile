@@ -7,6 +7,7 @@ VERSION=1.0.0
 all: install build-front  ## Run pipeline
 
 install: ## install server and client dependencies locally
+	 npm install
 	cd ./client && npm install
 
 build-front: ## run locally

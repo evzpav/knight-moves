@@ -75,7 +75,7 @@ function ChessService() {
     }
 
 
-    resolvePossibleKnightMovesPerTurn = (position) => {
+    calculateMovesPerTurn = (position) => {
         let coordinates = findCoordinates(position)
         let knightMoves = possibleKnightMoves(coordinates)
         return convertCoordinatesToPosition(knightMoves)
@@ -88,15 +88,16 @@ function ChessService() {
 
     resolveKnightMoves = (position) => {
         let result = {};
-        let movesFirstTurn = resolvePossibleKnightMovesPerTurn(position);
+        let movesFirstTurn = calculateMovesPerTurn(position);
         result["position"] = position;
         result["first_turn"] = movesFirstTurn;
-        result["second_turn"] = []
+        let movesSecondTurn = [];
 
         for (let i = 0; i < movesFirstTurn.length; i++) {
-            result["second_turn"].push(resolvePossibleKnightMovesPerTurn(movesFirstTurn[i]));
+            movesSecondTurn.push(calculateMovesPerTurn(movesFirstTurn[i]));
         }
-
+        let uniquePositions = [...new Set([].concat(...movesSecondTurn))];
+        result["second_turn"] = uniquePositions;
         return result;
     }
 
@@ -114,7 +115,11 @@ function ChessService() {
 
     return {
         validatePosition,
-        resolveKnightMoves
+        resolveKnightMoves,
+        calculateMovesPerTurn,
+        convertCoordinatesToPosition,
+        possibleKnightMoves,
+        findCoordinates,
     }
 
 }

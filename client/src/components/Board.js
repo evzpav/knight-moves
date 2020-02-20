@@ -1,25 +1,29 @@
 import React from 'react';
 import axios from 'axios';
 import config from '../config/config';
+import ReactLoading from 'react-loading';
 
 
 function Square(props) {
-    let { onClick, x, y, value, selected } = props;
+    let { onClick, x, y, value, highlight } = props;
 
     const background = getSquareColor(x, y);
-    const boxShadow = selected ? 'inset 0px 0px 0px 0.4vmin yellow' : undefined
+    const boxShadow = highlight ? 'inset 0px 0px 0px 0.5vmin #A6E1FA' : undefined
     const styles = Object.assign({ background, boxShadow });
     return (
         <button className="square" onClick={onClick} key={`square-${x}-${y}`}
             id={`square-${x}${y}`} style={styles}>
-            {value}
+            {/* {value} */}
         </button>
     );
 }
 
 function getSquareColor(x, y) {
-    const lightSquareColor = '#f0d9b5';
-    const darkSquareColor = '#b58863';
+    const lightSquareColor = '#0E6BA8';
+    const darkSquareColor = '#0A2472';
+    
+    // const lightSquareColor = '#f0d9b5';
+    // const darkSquareColor = '#b58863';
     const odd = x % 2;
     if (y % 2) {
         return odd ? lightSquareColor : darkSquareColor;
@@ -32,17 +36,35 @@ class Board extends React.Component {
         super(props);
         this.state = {
             squares: [],
-            xIsNext: true,
-            isTarget: false,
-            selected: ""
+            loading: false
         }
+
     }
 
-    async handleClick(name) {
-          
-        const knightMoves = await getKnightMoves(name);
+    async handleSquareClick(name) {
+        this.setState({ loading: true })
+    
+        try {
+           
+            setTimeout(()=>{
+            }, 1000)
 
-        console.log(knightMoves)
+            const knightMoves = await getKnightMoves(name);
+
+            let secondTurn = knightMoves.possiblePositions.second_turn;
+            this.setState({ squares: secondTurn });
+
+        } catch (error) {
+            if (error && error.response && error.response.status === 400) {
+                console.error("Bad request - error: ", error.response.data);
+            } else {
+                console.error(error);
+            }
+
+        } finally {
+            this.setState({ loading: false })
+        }
+
 
     }
 
@@ -50,15 +72,16 @@ class Board extends React.Component {
         return (
             <Square
                 value={name}
-                onClick={() => this.handleClick(name)}
+                onClick={() => this.handleSquareClick(name)}
                 x={i}
                 y={j}
                 key={name}
+                highlight={this.state.squares.includes(name)}
             />
         );
     }
 
-    renderBoard(){
+    renderBoard() {
         const xAxis = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
         const board = [];
 
@@ -79,28 +102,13 @@ class Board extends React.Component {
         return board;
     }
 
-    // renderBoard() {
-    //     let matrix = [];
-    //     for (let i = 0; i < 8; i++) {
-    //         let line = [];
-    //         for (let j = 0; j < 8; j++) {
-    //             line.push(this.renderSquare("name", i, j));
-    //         }
-
-    //         matrix.push(
-    //             <div className="board-row">
-    //                 {line}
-    //             </div>
-    //         )
-    //     }
-    //     return matrix;
-    // }
-
     render() {
-        return (
-            <div>
+          return (
+            <div key="board">
+
                 {this.renderBoard()}
             </div>
+
         );
     }
 }
