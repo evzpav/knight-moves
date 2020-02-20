@@ -13,7 +13,6 @@ function ChessService() {
             for (let j = 0; j < xAxis.length; j++) {
                 let fieldName = xAxis[j] + i
                 line.push(fieldName);
-
             }
             board.push(line);
         }
@@ -121,6 +120,7 @@ function ChessService() {
         convertCoordinatesToPosition,
         possibleKnightMoves,
         findCoordinates,
+        generateChessBoard
     }
 
 }

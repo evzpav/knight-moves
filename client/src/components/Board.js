@@ -1,35 +1,6 @@
 import React from 'react';
-import axios from 'axios';
-import config from '../config/config';
-
-
-
-function Square(props) {
-    let { onClick, x, y, value, highlight } = props;
-
-    const background = getSquareColor(x, y);
-    const boxShadow = highlight ? 'inset 0px 0px 0px 0.5vmin #A6E1FA' : undefined
-    const styles = Object.assign({ background, boxShadow });
-    return (
-        <button className="square" onClick={onClick} key={`square-${x}-${y}`}
-            id={`square-${x}${y}`} style={styles}>
-            {/* {value} */}
-        </button>
-    );
-}
-
-function getSquareColor(x, y) {
-    const lightSquareColor = '#0E6BA8';
-    const darkSquareColor = '#0A2472';
-    
-    // const lightSquareColor = '#f0d9b5';
-    // const darkSquareColor = '#b58863';
-    const odd = x % 2;
-    if (y % 2) {
-        return odd ? lightSquareColor : darkSquareColor;
-    }
-    return odd ? darkSquareColor : lightSquareColor;
-}
+import Square from './Square';
+import {getKnightMoves } from '../api/api';
 
 class Board extends React.Component {
     constructor(props) {
@@ -38,17 +9,12 @@ class Board extends React.Component {
             squares: [],
             loading: false
         }
-
     }
 
     async handleSquareClick(name) {
         this.setState({ loading: true })
     
         try {
-           
-            setTimeout(()=>{
-            }, 1000)
-
             const knightMoves = await getKnightMoves(name);
 
             let secondTurn = knightMoves.possiblePositions.second_turn;
@@ -64,7 +30,6 @@ class Board extends React.Component {
         } finally {
             this.setState({ loading: false })
         }
-
 
     }
 
@@ -111,24 +76,6 @@ class Board extends React.Component {
 
         );
     }
-}
-
-function getKnightMoves(position) {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const resp = await axios({
-                method: 'get',
-                url: `${config.apiUrl}/api/knightmoves/${position}`
-            });
-
-            resolve(resp.data);
-
-        } catch (error) {
-            reject(error);
-        }
-
-    })
-
 }
 
 export default Board;
