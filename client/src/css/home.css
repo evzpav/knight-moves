@@ -1,0 +1,30 @@
+.home {
+  text-align: center;
+}
+
+.home-header {
+  background-color: #00072D;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.home-logo {
+  margin-bottom: 25px;
+  height: 30vmin;
+  pointer-events: none;
+  filter: invert(30%) sepia(98%) saturate(920%) hue-rotate(176deg) brightness(90%) contrast(93%);
+}
+
+.start-button {
+  color: white;
+}
+
+.step-text {
+  font-size: calc(20px + 30vmin);
+  min-height: 50vh;
+}

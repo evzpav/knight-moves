@@ -1,27 +1,34 @@
 import React from 'react';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import './css/skeleton.css';
+import './css/prog-tracker.css';
+import './css/home.css';
 import './css/board.css';
 
-import Board from './components/Board'
+import Wizard from './views/Wizard';
+import Home from './views/Home';
+import Board from './components/Board';
 
 function App() {
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Knight Moves</h1>
+    <Router>
+      <div>
+        <Switch>
+          <Route path="/wizard">
+            <Wizard />
+          </Route>
+          <Route path="/chessboard">
+            <Board />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
 
-        <div className="game">
-
-            <Board/>
-      
-          <div className="game-info">
-
-            {/* <ol>asdasda</ol> */}
-          </div>
-        </div>
-      </header>
-    </div>
   );
 }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import Square from './Square';
-import {getKnightMoves } from '../api/api';
+import { getKnightMoves } from '../api/api';
+// import '../css/board.css';
 
 class Board extends React.Component {
     constructor(props) {
@@ -12,7 +13,7 @@ class Board extends React.Component {
     }
 
     async handleSquareClick(name) {
-        this.setState({ loading: true })
+        this.setState({ loading: true });
     
         try {
             const knightMoves = await getKnightMoves(name);
@@ -28,7 +29,7 @@ class Board extends React.Component {
             }
 
         } finally {
-            this.setState({ loading: false })
+            this.setState({ loading: false });
         }
 
     }
@@ -69,8 +70,7 @@ class Board extends React.Component {
 
     render() {
           return (
-            <div key="board">
-
+            <div key="board" className="board">
                 {this.renderBoard()}
             </div>
 
