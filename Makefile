@@ -9,7 +9,6 @@ MONGO_NAME    = mongodb_$(NAME)_$(BUILD)
 NETWORK_NAME  = network_$(NAME)_$(BUILD)
 MONGO_URL = mongodb://localhost:27018/${MONGO_NAME}
 
-
 all: install build-front ## Run pipeline
 
 install: ## install server and client dependencies locally
@@ -47,14 +46,12 @@ test: ## run tests
 build-image: ## build docker image
 	make run-target TARGET=release
 
-front: ## build docker image
+front: ## build front on docker
 	make run-target TARGET=front
-
 
 run-docker: build-image ## run server on docker
 	DOCKER_BUILDKIT=1 \
 	docker run --rm \
-		-p $(PORT):$(PORT) \
 		-e PORT=$(PORT) \
 		-e MONGO_URL=$(MONGO_URL) \
 		--network host \

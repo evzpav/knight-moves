@@ -9,10 +9,30 @@ It consists of a backend server in NodeJs with Express and a frontend client in 
 
 [<img src="./knight_moves.gif" width="250"/>](./knight_moves.gif)
 
-## Pre-requisites:
-### Node and Make installed
+## Instructions to run
 
-## Usage instructions
+### Alternative 1
+
+#### Pre-requisites:
+- Docker
+- Make
+
+```bash
+# Clone repository
+
+# Build front and run server on docker
+make run-docker
+
+# Server will be running on http://localhost:3000
+
+```
+
+### Alternative 2
+
+#### Pre-requisites:
+- Node 12
+- Make
+
 ```bash
 # Clone repository
 
@@ -28,6 +48,9 @@ make run
 # Server will be running on http://localhost:3000
 
 ```
+
+
+
 
 ### Further details:
 After clicking the square in the chessboard, a GET request passing the position in algebric format (e.g.:A8, D5, H1) as param in the URL.

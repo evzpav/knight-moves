@@ -21,13 +21,21 @@ COPY --chown=node:node . ./
 FROM dependencies AS test
 RUN npm test
 
+# ---- Front ----
+FROM base AS front
+WORKDIR /client
+COPY --chown=node:node ./client/package*.json ./
+RUN npm ci && npm cache clean --force
+COPY --chown=node:node /client ./
+RUN npm run build
 
 # ---- Release ----
-FROM base AS release
+FROM front AS release
+WORKDIR /server
 ENV NODE_ENV=production
 COPY --chown=node:node package*.json ./
 RUN npm ci && npm cache clean --force
-COPY --chown=node:node /client/build ../../client/build
 COPY --chown=node:node /server ./
 COPY --chown=node:node /server/server.js ./
 CMD [ "node","server.js"]
+
