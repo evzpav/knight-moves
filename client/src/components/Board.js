@@ -70,9 +70,12 @@ class Board extends React.Component {
 
     render() {
           return (
-            <div key="board" className="board">
-                {this.renderBoard()}
+            <div className="chessboard">
+                <div key="board" className="board">
+                    {this.renderBoard()}
+                </div>
             </div>
+            
 
         );
     }
