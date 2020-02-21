@@ -10,7 +10,7 @@ NETWORK_NAME  = network_$(NAME)_$(BUILD)
 MONGO_URL = mongodb://localhost:27018/${MONGO_NAME}
 
 
-all: install build-front run ## Run pipeline
+all: install build-front ## Run pipeline
 
 install: ## install server and client dependencies locally
 	npm install

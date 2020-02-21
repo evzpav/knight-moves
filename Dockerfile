@@ -21,15 +21,6 @@ COPY --chown=node:node . ./
 FROM dependencies AS test
 RUN npm test
 
-#---- Build-front ----
-FROM node:12-stretch-slim AS front
-ENV NODE_ENV=development
-RUN mkdir /client && chown -R node:node /client
-WORKDIR /client
-USER node
-RUN npm set progress=false && npm config set depth 0
-RUN npm install
-RUN npm run build
 
 # ---- Release ----
 FROM base AS release
