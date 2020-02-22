@@ -6,6 +6,7 @@
   flex-direction: column;
   margin-top: 20px;
   padding: 5px;
+  margin-right: 60px;
 }
 
 .chessboard-header img{
