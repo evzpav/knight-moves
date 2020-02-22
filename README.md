@@ -13,7 +13,6 @@ It consists of a backend server in NodeJs with Express and a frontend client in 
 Below you can find 2 ways to run this project.
 
 ### Method 1 (recommended):
-
 #### Pre-requisites:
 - [Docker](https://docs.docker.com/install/)
 - [Make](https://www.gnu.org/software/make/)
@@ -29,7 +28,6 @@ make run-docker
 ```
 
 ### Method 2
-
 #### Pre-requisites:
 - [Node 12](https://nodejs.org/en/)
 - [Make](https://www.gnu.org/software/make/)
@@ -51,7 +49,6 @@ make run
 ```
 
 ### Unit Tests
-
 The business logic inside server/services is tested within ./tests folder using [Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com):
 
 ```bash
@@ -61,7 +58,6 @@ make test
 ``` 
 
 ### Audits
-
 Run dependencies audit
 
 ```bash
@@ -71,7 +67,6 @@ make audit
 ``` 
 
 ## REST API Documentation
-
 All available REST API documentation exposed by the project was documented using the [OpenAPI](https://www.openapis.org/) standard.
 
 To view this documentation locally use the following command:
@@ -81,7 +76,6 @@ make run-swagger
 
 
 ### Deployment to Heroku or Dokku
-
 To deploy this project to Heroku as one app only, it the server will be serving the static content of the ./client/build folder.
 For that, the way I figured to make it work it is to commit the ./client/build folder to git.
 
@@ -97,6 +91,7 @@ make build-front
 
 After this the normal procedure for a Heroku app deploy can be done.
 
+PS.: A better way would be to run server as a separate Heroku app and another app with NGINX image to run the web server for the static files of the frontend. However it would need to git repositories for it.
 
 
 ### Further details:

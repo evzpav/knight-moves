@@ -1,9 +1,35 @@
-.chessboard {
+
+.chessboard-header {
   display: flex;
-  min-height: 100vh;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  margin-top: 20px;
+  padding: 5px;
 }
+
+.chessboard-header img{
+  height: 60px;
+  filter: invert(30%) sepia(98%) saturate(920%) hue-rotate(176deg) brightness(90%) contrast(93%);
+}
+
+.chessboard-header h1{
+  font-size: 40px;
+}
+
+.chessboard {
+  display: flex;
+  min-height: 60vh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#loading-div {
+  padding: 10px;
+  height:  30px;
+}
+
 
 .board-row {
   display: flex;

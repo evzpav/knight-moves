@@ -5,6 +5,7 @@ import './css/skeleton.css';
 import './css/prog-tracker.css';
 import './css/home.css';
 import './css/board.css';
+import './css/wizard.css';
 
 import Wizard from './views/Wizard';
 import Home from './views/Home';

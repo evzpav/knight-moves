@@ -1,12 +1,12 @@
 import React from 'react'
 import Multistep from 'react-multistep';
-import { StepOne } from './StepOne'
-import { StepTwo } from './StepTwo'
+import { StepOne } from '../components/StepOne'
+import { StepTwo } from '../components/StepTwo'
 
 
 const steps = [
-    { name: 'Step One', component: <StepOne /> },
-    { name: 'Step Two', component: <StepTwo /> }
+    { name: 'Step 1', component: <StepOne /> },
+    { name: 'Step 2', component: <StepTwo /> }
 ];
 
 export default class Wizard extends React.Component {

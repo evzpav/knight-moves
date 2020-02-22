@@ -24,7 +24,3 @@
   color: white;
 }
 
-.step-text {
-  font-size: calc(20px + 30vmin);
-  min-height: 50vh;
-}
