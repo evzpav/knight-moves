@@ -8,7 +8,7 @@ import './css/board.css';
 
 import Wizard from './views/Wizard';
 import Home from './views/Home';
-import Board from './components/Board';
+import Board from './views/Board';
 
 function App() {
 

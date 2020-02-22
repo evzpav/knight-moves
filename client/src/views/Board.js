@@ -1,7 +1,6 @@
 import React from 'react';
-import Square from './Square';
+import Square from '../components/Square';
 import { getKnightMoves } from '../api/api';
-// import '../css/board.css';
 
 class Board extends React.Component {
     constructor(props) {

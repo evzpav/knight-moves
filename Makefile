@@ -37,9 +37,6 @@ audit: ## run audit
 dependencies: ## run dependencies check
 	make run-target TARGET=dependencies
 
-lint: ## run lint
-	make run-target TARGET=lint
-
 test: ## run tests
 	make run-target TARGET=test
 
@@ -62,6 +59,14 @@ run: ## run locally
 	MONGO_URL=$(MONGO_URL) \
 	node ./server/server.js
 
+run-swagger:  ## run Swagger OpenAPI doc server.
+	docker run \
+		-p 9900:8080 \
+		-e BASE_URL=/ \
+		-e SWAGGER_JSON=/api/api.yaml \
+		-v ${PWD}/server/api:/api \
+		swaggerapi/swagger-ui
+	$(info Swagger docs running on http://localhost:9900/)
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
