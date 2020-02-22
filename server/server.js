@@ -8,8 +8,12 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false, limit: '500kb' }));
 app.use(bodyParser.json({ limit: '500kb' }));
 
+const Storage = require('./storage/storage')();
+Storage.newStorage(process.env.MONGO_URL, "knight_moves", "possible_moves");
+const ChessService = require('./services/chessService')(Storage);
+const Controller = require('./controllers/controller')(ChessService);
 
-require('./router/router')(app);
+require('./router/router')(app, Controller);
 
 const server = app.listen(config.port, function (err) {
     if (err) {

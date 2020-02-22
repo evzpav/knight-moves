@@ -1,4 +1,4 @@
-function ChessService() {
+function ChessService(Storage) {
 
     this.board = [];
     this.mapping = {};
@@ -98,6 +98,7 @@ function ChessService() {
         let uniquePositions = [...new Set([].concat(...movesSecondTurn))];
         result["second_turn"] = uniquePositions;
 
+        Storage.insertPossibleMoves(result);
         return result;
     }
 

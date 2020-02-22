@@ -48,3 +48,21 @@
   outline: none;
   box-shadow: inset 0px 0px 0px 0.4vmin yellow;
 }
+
+.board-footer {
+    display: flex;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.info-square {
+  pointer-events: none;
+  border: 1px solid transparent;
+  height: 60px;
+  width: 60px;
+  margin: auto;
+  text-align: center;
+  text-justify: auto;
+  font-size: 11px;
+  font-weight: 600;
+}

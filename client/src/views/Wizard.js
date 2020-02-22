@@ -10,10 +10,6 @@ const steps = [
 ];
 
 export default class Wizard extends React.Component {
-    constructor() {
-        super()
-    }
-
     render() {
         return (
             <div className='container'>

@@ -1,6 +1,16 @@
-const { generateChessBoard, validatePosition, findCoordinates, calculateMovesPerTurn, convertCoordinatesToPosition, resolveKnightMoves } = require("../services/chessService")();
-const assert = require('chai').assert
 
+const Storage = require("../storage/storage")();
+Storage.insertPossibleMoves = async (value) => {
+    return new Promise((resolve, reject) => {
+        resolve(value);
+    })
+
+}
+
+const Service = require("../services/chessService")(Storage);
+
+let { generateChessBoard, validatePosition, findCoordinates, calculateMovesPerTurn, convertCoordinatesToPosition, resolveKnightMoves } = Service;
+const assert = require('chai').assert;
 
 describe('Chess Service tests', () => {
 
@@ -134,37 +144,37 @@ describe('Chess Service tests', () => {
 
     })
 
-    describe('resolveKnightMoves', () => {
-        it('resolveKnightMoves for position A8', () => {
-            const knightMoves = resolveKnightMoves("A8");
-            const expectedResult = {
-                position: 'A8',
-                first_turn: ['B6', 'C7'],
-                second_turn:
-                    ['C4', 'A4', 'C8', 'A8', 'D5', 'D7', 'B5', 'E6', 'A6', 'E8']
-            }
-            assert.equal(knightMoves.position, expectedResult.position)
-            assert.equal(compareArrays(knightMoves.first_turn, expectedResult.first_turn), true)
-            assert.equal(compareArrays(knightMoves.second_turn, expectedResult.second_turn), true)
+        describe('resolveKnightMoves', () => {
+            it('resolveKnightMoves for position A8', () => {
+                const knightMoves = resolveKnightMoves("A8");
+                const expectedResult = {
+                    position: 'A8',
+                    first_turn: ['B6', 'C7'],
+                    second_turn:
+                        ['C4', 'A4', 'C8', 'A8', 'D5', 'D7', 'B5', 'E6', 'A6', 'E8']
+                }
+                assert.equal(knightMoves.position, expectedResult.position)
+                assert.equal(compareArrays(knightMoves.first_turn, expectedResult.first_turn), true)
+                assert.equal(compareArrays(knightMoves.second_turn, expectedResult.second_turn), true)
+            })
+
+            it('resolveKnightMoves for position D5', () => {
+                const knightMoves = resolveKnightMoves("D5");
+                const expectedResult = {
+                    position: 'D5',
+                    first_turn: ['E3', 'C3', 'E7', 'C7', 'F4', 'B4', 'F6', 'B6'],
+                    second_turn:
+                        ['F1', 'D1', 'F5', 'D5', 'G2', 'C2', 'G4', 'C4', 'B1', 'B5', 'E2', 'A2', 'E4', 'A4',
+                            'G6', 'C6', 'G8', 'C8', 'E6', 'A6', 'E8', 'A8', 'H3', 'D3', 'H5', 'H7', 'D7']
+                }
+                assert.equal(knightMoves.position, expectedResult.position)
+                assert.equal(compareArrays(knightMoves.first_turn, expectedResult.first_turn), true)
+                assert.equal(compareArrays(knightMoves.second_turn, expectedResult.second_turn), true)
+
+            })
+
+
         })
-
-        it('resolveKnightMoves for position D5', () => {
-            const knightMoves = resolveKnightMoves("D5");
-            const expectedResult = {
-                position: 'D5',
-                first_turn: ['E3', 'C3', 'E7', 'C7', 'F4', 'B4', 'F6', 'B6'],
-                second_turn:
-                    ['F1', 'D1', 'F5', 'D5', 'G2', 'C2', 'G4', 'C4', 'B1', 'B5', 'E2', 'A2', 'E4', 'A4',
-                       'G6', 'C6', 'G8', 'C8', 'E6', 'A6', 'E8', 'A8', 'H3', 'D3', 'H5', 'H7', 'D7']
-            }
-            assert.equal(knightMoves.position, expectedResult.position)
-            assert.equal(compareArrays(knightMoves.first_turn, expectedResult.first_turn), true)
-            assert.equal(compareArrays(knightMoves.second_turn, expectedResult.second_turn ), true)
-
-        })
-
-
-    })
 })
 
 

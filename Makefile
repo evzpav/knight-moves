@@ -1,13 +1,11 @@
 .DEFAULT_GOAL := all 
-.PHONY: build-image run install all help
 
-NAME= knight-moves-server
-VERSION=1.0.0
-PORT=3000
-BUILD         	= $(shell git rev-parse --short HEAD)
-MONGO_NAME    = mongodb_$(NAME)_$(BUILD)
-NETWORK_NAME  = network_$(NAME)_$(BUILD)
-MONGO_URL = mongodb://localhost:27018/${MONGO_NAME}
+NAME = knight-moves
+VERSION = 1.0.0
+PORT = 3000
+MONGO_NAME = mongodb_$(NAME)
+MONGO_PORT = 27018
+MONGO_URL = mongodb://localhost:$(MONGO_PORT)/${MONGO_NAME}
 
 all: install build-front ## Run pipeline
 
@@ -24,12 +22,15 @@ run-front: ## run locally port 8080
 run-target: ## run target
 	DOCKER_BUILDKIT=1 docker build  -t $(NAME):$(VERSION) --target=$(TARGET) .
 
-run-mongo: ## run mongo container.
+mongo: ## run mongo container.
 	docker run --rm -d \
 		--name ${MONGO_NAME} \
-		-p 27018:27017 \
+		-p ${MONGO_PORT}:27017 \
 		mongo:3.6 \
 		--smallfiles --noprealloc --nojournal
+
+stop-mongo:
+	-docker stop ${MONGO_NAME}
 
 audit: ## run audit
 	make run-target TARGET=audit

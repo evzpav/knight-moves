@@ -20,6 +20,9 @@ Below you can find 2 ways to run this project.
 ```bash
 # Clone repository
 
+# Start mongo on docker (optional)
+make mongo
+
 # Build front and run server on docker
 make run-docker
 
@@ -31,9 +34,12 @@ make run-docker
 #### Pre-requisites:
 - [Node 12](https://nodejs.org/en/)
 - [Make](https://www.gnu.org/software/make/)
+- [Mongo](https://www.mongodb.com/) (optional)
 
 ```bash
 # Clone repository
+
+# Run mongo at port 27018 (optional)
 
 # Download dependencies for client and server
 make install
