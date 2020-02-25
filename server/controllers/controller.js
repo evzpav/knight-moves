@@ -1,26 +1,23 @@
 function Controller(ChessService) {
+  const getKnightMoves = (req, res) => {
+    try {
+      const { position } = req.params;
 
-    getKnightMoves = async (req, res) => {
-        try {
+      if (!ChessService.validatePosition(position)) {
+        res.status(400).json({ message: "Invalid input position" });
+        return;
+      }
 
-            let position = req.params.position;
-
-            if (!ChessService.validatePosition(position)) {
-                res.status(400).json({ message: "Invalid input position" });
-            }
-
-            let possiblePositions = ChessService.resolveKnightMoves(position);
-            res.status(200).json({ possiblePositions });
-
-        } catch (error) {
-            console.error(error);
-            res.status(500).end();
-        }
-    };
-
-    return {
-        getKnightMoves
+      const possiblePositions = ChessService.resolveKnightMoves(position);
+      res.status(200).json({ possiblePositions });
+    } catch (error) {
+      res.status(500).end();
     }
-};
+  };
+
+  return {
+    getKnightMoves,
+  };
+}
 
 module.exports = Controller;

@@ -60,6 +60,12 @@ run: ## run locally
 	MONGO_URL=$(MONGO_URL) \
 	node ./server/server.js
 
+lint: ## format code
+	cd ./client && npm run format
+	npm run format
+	cd ./client && npm run lint
+	npm run lint
+
 run-swagger:  ## run Swagger OpenAPI doc server.
 	docker run \
 		-p 9900:8080 \

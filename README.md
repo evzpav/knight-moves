@@ -63,6 +63,15 @@ make test
 
 ``` 
 
+### Lint
+Run linters on server and client
+
+```bash
+
+make lint
+
+``` 
+
 ### Audits
 Run dependencies audit
 

@@ -1,18 +1,17 @@
-import React from 'react';
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import './css/skeleton.css';
-import './css/prog-tracker.css';
-import './css/home.css';
-import './css/board.css';
-import './css/wizard.css';
+import "./css/skeleton.css";
+import "./css/prog-tracker.css";
+import "./css/home.css";
+import "./css/board.css";
+import "./css/wizard.css";
 
-import Wizard from './views/Wizard';
-import Home from './views/Home';
-import Board from './views/Board';
+import Wizard from "./views/Wizard";
+import Home from "./views/Home";
+import Board from "./views/Board";
 
 function App() {
-
   return (
     <Router>
       <div>
@@ -29,7 +28,6 @@ function App() {
         </Switch>
       </div>
     </Router>
-
   );
 }
 
