@@ -1,4 +1,7 @@
+/* eslint-disable  jsx-a11y/control-has-associated-label */
+
 import React from "react";
+import PropTypes from "prop-types";
 
 function getSquareColor(x, y) {
   const lightSquareColor = "#0E6BA8";
@@ -27,3 +30,10 @@ export default function Square(props) {
     />
   );
 }
+
+Square.propTypes = {
+  onClick: PropTypes.element.isRequired,
+  x: PropTypes.element.isRequired,
+  y: PropTypes.element.isRequired,
+  highlight: PropTypes.element.isRequired,
+};

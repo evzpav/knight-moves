@@ -88,6 +88,7 @@ function ChessService(Storage) {
     result.second_turn = uniquePositions;
 
     Storage.insertPossibleMoves(result);
+
     return result;
   };
 

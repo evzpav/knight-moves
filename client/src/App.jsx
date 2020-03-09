@@ -1,11 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import "./css/skeleton.css";
-import "./css/prog-tracker.css";
-import "./css/home.css";
-import "./css/board.css";
-import "./css/wizard.css";
+import "./assets/css/skeleton.css";
 
 import Wizard from "./views/Wizard";
 import Home from "./views/Home";

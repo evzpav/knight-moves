@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Square from "../components/Square";
 import getKnightMoves from "../api/api";
 import logo from "../assets/images/knight.svg";
+import "./Board.css";
 
 class Board extends React.Component {
   constructor(props) {
@@ -31,10 +32,8 @@ class Board extends React.Component {
       this.setState({ squares: secondTurn });
     } catch (error) {
       if (error && error.response && error.response.status === 400) {
-        console.error("Bad request - error: ", error.response.data);
         this.setState({ error: error.response.data });
       } else {
-        console.error(error);
         this.setState({
           error: "Could not retrieve positions from server.",
         });

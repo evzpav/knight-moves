@@ -1,3 +1,18 @@
+.step-text {
+    font-size: calc(16px + 1vmin);
+    min-height: 50vh;
+}
+
+#play-button {
+    font-weight: 1000;
+    font-size: 20px;
+    background-color: teal;
+    color: white;
+    height: 50px;
+    min-width: 200px;
+    margin-bottom: 50px;
+}
+
 ol.progtrckr {
     margin: 0;
     padding-bottom: 2.2rem;

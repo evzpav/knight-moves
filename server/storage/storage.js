@@ -1,37 +1,36 @@
 const { MongoClient } = require("mongodb");
 
-function Storage() {
-  this.storage = null;
+function Storage(mongoUrl, dbName, collectionName) {
+  let _storage = null;
 
-  const newStorage = async (mongoUrl, dbName, collectionName) => {
+  (async (mongoUrl, dbName, collectionName) => {
     let client = null;
-    try {
-      client = await MongoClient.connect(mongoUrl, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
-    } catch (error) {
-      console.log("Failed to instantiate Mongo: ", error);
+    client = await MongoClient.connect(mongoUrl, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+
+    if (!client) {
+      throw "Failed to instantiate Mongo";
     }
 
     try {
       const dbo = client.db(dbName);
-      this.storage = dbo.collection(collectionName);
+      _storage = dbo.collection(collectionName);
     } catch (error) {
-      console.log("Failed to create collection: ", error);
+      console.log(error);
     }
-  };
+  })(mongoUrl, dbName, collectionName);
 
-  const insertPossibleMoves = async possibleMoves => {
+  const insertPossibleMoves = possibleMoves => {
     try {
-      await this.storage.insertOne(possibleMoves);
+      _storage.insertOne(possibleMoves);
     } catch (error) {
       console.log("Failed to insert possible moves: ", error);
     }
   };
 
   return {
-    newStorage,
     insertPossibleMoves,
   };
 }

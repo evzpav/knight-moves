@@ -4,14 +4,13 @@ function Controller(ChessService) {
       const { position } = req.params;
 
       if (!ChessService.validatePosition(position)) {
-        res.status(400).json({ message: "Invalid input position" });
-        return;
+        return res.status(400).json({ message: "Invalid input position" });
       }
 
       const possiblePositions = ChessService.resolveKnightMoves(position);
-      res.status(200).json({ possiblePositions });
+      return res.status(200).json({ possiblePositions });
     } catch (error) {
-      res.status(500).end();
+      return res.status(500).end();
     }
   };
 
