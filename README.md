@@ -5,7 +5,7 @@ It is a small game that highlights chessboard cells corresponding to the possibl
 It consists of a backend server in NodeJs with Express and a frontend client in ReactJs.
 
 - Client: React
-- Server: NodeJs
+- Server: NodeJs (Typescript)
 
 [<img src="./knight_moves.gif" width="250"/>](./knight_moves.gif)
 
@@ -42,6 +42,8 @@ make run-docker
 # Run mongo at port 27018 (optional)
 
 # Download dependencies for client and server
+sudo npm i -g typescript
+sudo npm i -g ts-node
 make install
 
 # Generate build files for client (./build folder)

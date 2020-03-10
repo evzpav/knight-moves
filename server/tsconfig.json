@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "outDir": "./built",
+        "allowJs": true,
+        "target": "es2018",
+        "module": "CommonJS",
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": false,
+        "strictNullChecks": true,
+        "downlevelIteration": true
+    },
+    "include": [
+        "./**/*"
+    ]
+}

@@ -2,6 +2,8 @@
 FROM node:12-stretch-slim AS base
 ENV NODE_ENV=development
 RUN mkdir /server && chown -R node:node /server
+RUN npm install -g typescript
+RUN npm install -g ts-node
 WORKDIR /server
 USER node
 RUN npm set progress=false && npm config set depth 0
@@ -14,6 +16,7 @@ RUN npm audit
 # ---- Dependencies ----
 FROM base AS dependencies
 COPY --chown=node:node package*.json ./
+COPY --chown=node:node tsconfig*.json ./
 RUN npm install --no-audit
 COPY --chown=node:node . ./
 
@@ -36,6 +39,6 @@ ENV NODE_ENV=production
 COPY --chown=node:node package*.json ./
 RUN npm ci && npm cache clean --force
 COPY --chown=node:node /server ./
-COPY --chown=node:node /server/server.js ./
-CMD [ "node","server.js"]
+COPY --chown=node:node /server/server.ts ./
+CMD [ "ts-node","server.ts"]
 
