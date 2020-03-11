@@ -28,7 +28,7 @@ class Board extends React.Component {
         return;
       }
 
-      const secondTurn = knightMoves.possiblePositions.second_turn;
+      const { secondTurn } = knightMoves.possiblePositions;
       this.setState({ squares: secondTurn });
     } catch (error) {
       if (error && error.response && error.response.status === 400) {

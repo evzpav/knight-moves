@@ -1,5 +1,5 @@
-export function Controller(ChessService: any) {
-  const getKnightMoves = async (req: any, res: any) => {
+export const Controller = (ChessService: any): any => {
+  const getKnightMoves = async (req: any, res: any): Promise<any> => {
     try {
       const { position } = req.params;
 
@@ -19,4 +19,4 @@ export function Controller(ChessService: any) {
   return {
     getKnightMoves,
   };
-}
+};

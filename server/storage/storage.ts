@@ -1,12 +1,12 @@
-const { MongoClient } = require("mongodb");
+import { MongoClient } from "mongodb";
 
-export function Storage(mongoUrl: string, dbName: string, collectionName: string) {
+export const Storage = (mongoUrl: string, dbName: string, collectionName: string): any => {
   let _storage: any = null;
   if (!mongoUrl) {
     return;
   }
 
-  (async (mongoUrl, dbName, collectionName) => {
+  (async (mongoUrl, dbName, collectionName): Promise<any> => {
     let client: any = null;
     client = await MongoClient.connect(mongoUrl, {
       useNewUrlParser: true,
@@ -26,7 +26,7 @@ export function Storage(mongoUrl: string, dbName: string, collectionName: string
     }
   })(mongoUrl, dbName, collectionName);
 
-  const insertPossibleMoves = (possibleMoves: any) => {
+  const insertPossibleMoves = (possibleMoves: any): any => {
     if (_storage === null) return;
     try {
       _storage.insertOne(possibleMoves);
@@ -35,7 +35,7 @@ export function Storage(mongoUrl: string, dbName: string, collectionName: string
     }
   };
 
-  const findPossibleMoves = (position: any) => {
+  const findPossibleMoves = (position: any): any => {
     if (_storage === null) return;
     try {
       return _storage.findOne({ position });
@@ -48,4 +48,4 @@ export function Storage(mongoUrl: string, dbName: string, collectionName: string
     insertPossibleMoves,
     findPossibleMoves,
   };
-}
+};

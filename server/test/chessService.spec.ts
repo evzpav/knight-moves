@@ -4,23 +4,23 @@ import { describe, it } from "mocha";
 import { ChessService } from "../services/chessService";
 
 const StorageInstance = {
-  insertPossibleMoves: value => {
+  insertPossibleMoves: (): null => {
     return null;
   },
-  findPossibleMoves: value => {
+  findPossibleMoves: (): null => {
     return null;
   },
 };
 
 const Service = ChessService(StorageInstance);
 
-function compareArraysString(array1: string[], array2: string[]) {
+const compareArraysString = (array1: string[], array2: string[]): boolean => {
   return array1.every((x: string) => array2.includes(x));
-}
+};
 
-function compareArraysNumber(array1: number[], array2: number[]) {
+const compareArraysNumber = (array1: number[], array2: number[]): boolean => {
   return array1.every((x: number) => array2.includes(x));
-}
+};
 
 const {
   generateChessBoard,
@@ -199,20 +199,20 @@ describe("Chess Service tests", () => {
       const knightMoves = await resolveKnightMoves("A8");
       const expectedResult = {
         position: "A8",
-        first_turn: ["B6", "C7"],
-        second_turn: ["C4", "A4", "C8", "A8", "D5", "D7", "B5", "E6", "A6", "E8"],
+        firstTurn: ["B6", "C7"],
+        secondTurn: ["C4", "A4", "C8", "A8", "D5", "D7", "B5", "E6", "A6", "E8"],
       };
       assert.equal(knightMoves.position, expectedResult.position);
-      assert.equal(compareArraysString(knightMoves.first_turn, expectedResult.first_turn), true);
-      assert.equal(compareArraysString(knightMoves.second_turn, expectedResult.second_turn), true);
+      assert.equal(compareArraysString(knightMoves.firstTurn, expectedResult.firstTurn), true);
+      assert.equal(compareArraysString(knightMoves.secondTurn, expectedResult.secondTurn), true);
     });
 
     it("resolveKnightMoves for position D5", async () => {
       const knightMoves = await resolveKnightMoves("D5");
       const expectedResult = {
         position: "D5",
-        first_turn: ["E3", "C3", "E7", "C7", "F4", "B4", "F6", "B6"],
-        second_turn: [
+        firstTurn: ["E3", "C3", "E7", "C7", "F4", "B4", "F6", "B6"],
+        secondTurn: [
           "F1",
           "D1",
           "F5",
@@ -243,8 +243,8 @@ describe("Chess Service tests", () => {
         ],
       };
       assert.equal(knightMoves.position, expectedResult.position);
-      assert.equal(compareArraysString(knightMoves.first_turn, expectedResult.first_turn), true);
-      assert.equal(compareArraysString(knightMoves.second_turn, expectedResult.second_turn), true);
+      assert.equal(compareArraysString(knightMoves.firstTurn, expectedResult.firstTurn), true);
+      assert.equal(compareArraysString(knightMoves.secondTurn, expectedResult.secondTurn), true);
     });
   });
 });

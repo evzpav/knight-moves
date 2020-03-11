@@ -1,20 +1,20 @@
 openapi: 3.0.1
 info:
   title: Knight Moves API
-  description: 'This is the API docs for Knight Moves project'
+  description: "This is the API docs for Knight Moves project"
   version: 1.0.0
 servers:
-- url: https://localhost:3000/api
+  - url: https://localhost:3000/api
 
 tags:
-- name: Knight Moves
+  - name: Knight Moves
 paths:
   /knightmoves/:position:
     get:
       tags:
-      - Knight Moves
+        - Knight Moves
       summary: Retrieve and object with the first and second turn positions of the knight piece
-      parameters: 
+      parameters:
         - in: path
           name: position
           required: true
@@ -28,7 +28,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MovesReturn'
+                $ref: "#/components/schemas/MovesReturn"
 
         400:
           description: Bad Request
@@ -37,15 +37,13 @@ paths:
               schema:
                 type: object
                 properties:
-                  message: 
+                  message:
                     type: string
                     example: Invalid input position
-                    
+
         500:
           description: Internal Server Error
-     
-              
- 
+
 components:
   schemas:
     MovesReturn:
@@ -54,21 +52,21 @@ components:
         position:
           type: string
           example: A8
-        first_turn:
+        firstTurn:
           type: array
           items:
             type: string
             example:
               - B6
               - C7
-        second_turn:
+        secondTurn:
           type: array
           items:
             type: string
-            example: 
+            example:
               - C4
               - A4
-              - C8 
+              - C8
               - A8
               - D5
               - D7
@@ -76,4 +74,3 @@ components:
               - E6
               - A6
               - E8
-        

@@ -34,12 +34,12 @@ const server = app.listen(config.port, "localhost", 1, (err: any) => {
   console.info(`App listening on port ${config.port}; http://localhost:${config.port}`);
 });
 
-function stop() {
+const stop = (): void => {
   server.close(() => {
     console.info("Server closed");
     process.exit();
   });
-}
+};
 
 process.on("SIGINT", () => {
   console.info("Closing server...");

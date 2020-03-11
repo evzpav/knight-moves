@@ -1,8 +1,14 @@
-export function ChessService(Storage: any) {
+interface Result {
+  position: string;
+  firstTurn: string[];
+  secondTurn: string[];
+}
+
+export const ChessService = (Storage: any): any => {
   this.board = [];
   this.mapping = {};
 
-  const generateChessBoard = () => {
+  const generateChessBoard = (): string[][] => {
     const xAxis: string[] = ["A", "B", "C", "D", "E", "F", "G", "H"];
     const board: string[][] = [];
 
@@ -18,7 +24,7 @@ export function ChessService(Storage: any) {
     return board;
   };
 
-  const createBoardMapping = () => {
+  const createBoardMapping = (): {} => {
     const mapping = {};
     for (let i = 0; i < this.board.length; i += 1) {
       const line = this.board[i];
@@ -29,11 +35,11 @@ export function ChessService(Storage: any) {
     return mapping;
   };
 
-  const findCoordinates = (position: string | number) => {
+  const findCoordinates = (position: string | number): string => {
     return this.mapping[position] ? this.mapping[position] : "";
   };
 
-  const possibleKnightMoves = (coordinatesInput: string) => {
+  const possibleKnightMoves = (coordinatesInput: string): number[][] => {
     if (!coordinatesInput || coordinatesInput.length < 2) {
       return [];
     }
@@ -59,7 +65,7 @@ export function ChessService(Storage: any) {
     return coordinates;
   };
 
-  const convertCoordinatesToPosition = (knightMoves: number[][]) => {
+  const convertCoordinatesToPosition = (knightMoves: number[][]): string[] => {
     const positions: string[] = [];
     for (let i = 0; i < knightMoves.length; i += 1) {
       const move = knightMoves[i];
@@ -68,23 +74,17 @@ export function ChessService(Storage: any) {
     return positions;
   };
 
-  const calculateMovesPerTurn = position => {
+  const calculateMovesPerTurn = (position: string): string[] => {
     const coordinates = findCoordinates(position);
     const knightMoves = possibleKnightMoves(coordinates);
     return convertCoordinatesToPosition(knightMoves);
   };
 
-  const resolveKnightMoves = async (position: string) => {
-    interface Result {
-      position: string;
-      first_turn: string[];
-      second_turn: string[];
-    }
-
+  const resolveKnightMoves = async (position: string): Promise<Result> => {
     const result: Result = {
       position: "",
-      first_turn: [],
-      second_turn: [],
+      firstTurn: [],
+      secondTurn: [],
     };
 
     const foundSavedMove: Result = await Storage.findPossibleMoves(position);
@@ -94,10 +94,11 @@ export function ChessService(Storage: any) {
 
     const movesFirstTurn = calculateMovesPerTurn(position);
     result.position = position;
-    result.first_turn = movesFirstTurn;
+    result.firstTurn = movesFirstTurn;
 
-    let set: any = new Set();
-    let uniquePositions: string[] = [];
+    // eslint-disable-next-line no-undef
+    const set: any = new Set();
+    const uniquePositions: string[] = [];
     for (let i = 0; i < movesFirstTurn.length; i += 1) {
       uniquePositions.push(...calculateMovesPerTurn(movesFirstTurn[i]));
       set.add(uniquePositions);
@@ -105,7 +106,7 @@ export function ChessService(Storage: any) {
     const secondTurn: string[][] = Array.from(set);
 
     if (secondTurn.length > 0) {
-      result.second_turn = secondTurn[0];
+      result.secondTurn = secondTurn[0];
     }
 
     Storage.insertPossibleMoves(result);
@@ -113,7 +114,7 @@ export function ChessService(Storage: any) {
     return result;
   };
 
-  const validatePosition = (position: string) => {
+  const validatePosition = (position: string): boolean => {
     const re = new RegExp("[A-H]{1}[1-8]{1}");
     if (re.exec(position)) {
       return true;
@@ -121,6 +122,7 @@ export function ChessService(Storage: any) {
     return false;
   };
 
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const init = () => {
     this.board = generateChessBoard();
     this.mapping = createBoardMapping();
@@ -137,4 +139,4 @@ export function ChessService(Storage: any) {
     findCoordinates,
     generateChessBoard,
   };
-}
+};
