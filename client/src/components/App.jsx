@@ -1,11 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import "./assets/css/skeleton.css";
-
-import Wizard from "./views/Wizard";
-import Home from "./views/Home";
-import Board from "./views/Board";
+import Wizard from "./Wizard";
+import Home from "./Home";
+import Board from "./Board";
 
 function App() {
   return (

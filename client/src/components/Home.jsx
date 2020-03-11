@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../assets/images/knight.svg";
+import logo from "./knight.svg";
 import "./Home.css";
 
 function Home() {

@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Square from "../components/Square";
+import Square from "./Square";
 import getKnightMoves from "../api/api";
-import logo from "../assets/images/knight.svg";
+import logo from "./knight.svg";
 import "./Board.css";
 
 class Board extends React.Component {

@@ -1,7 +1,7 @@
 import React from "react";
 import Multistep from "react-multistep";
-import StepOne from "../components/StepOne";
-import StepTwo from "../components/StepTwo";
+import StepOne from "./StepOne";
+import StepTwo from "./StepTwo";
 import "./Wizard.css";
 
 const steps = [
