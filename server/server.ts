@@ -10,9 +10,9 @@ app.use(bodyParser.urlencoded({ extended: false, limit: "500kb" }));
 app.use(bodyParser.json({ limit: "500kb" }));
 
 app.use((req, res, next) => {
-  res.header('X-XSS-Protection', "0");
-  res.header('X-Content-Type-Options', "nosniff");
-  res.header('X-Frame-Options', "SAMEORIGIN");
+  res.header("X-XSS-Protection", "0");
+  res.header("X-Content-Type-Options", "nosniff");
+  res.header("X-Frame-Options", "SAMEORIGIN");
   next();
 });
 

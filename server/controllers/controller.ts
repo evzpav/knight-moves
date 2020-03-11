@@ -8,7 +8,7 @@ export function Controller(ChessService: any) {
       }
 
       const possiblePositions = await ChessService.resolveKnightMoves(position);
-      
+
       return res.status(200).json({ possiblePositions });
     } catch (error) {
       console.log(error);
