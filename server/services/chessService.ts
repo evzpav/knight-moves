@@ -1,15 +1,15 @@
-function ChessService(Storage) {
+export function ChessService(Storage: any) {
   this.board = [];
   this.mapping = {};
 
   const generateChessBoard = () => {
-    const xAxis = ["A", "B", "C", "D", "E", "F", "G", "H"];
-    const board = [];
+    const xAxis: string[] = ["A", "B", "C", "D", "E", "F", "G", "H"];
+    const board: string[][] = [];
 
     for (let i = 8; i > 0; i -= 1) {
-      const line = [];
+      const line: string[] = [];
       for (let j = 0; j < xAxis.length; j += 1) {
-        const fieldName = xAxis[j] + i;
+        const fieldName: string = xAxis[j] + i;
         line.push(fieldName);
       }
       board.push(line);
@@ -29,22 +29,22 @@ function ChessService(Storage) {
     return mapping;
   };
 
-  const findCoordinates = position => {
+  const findCoordinates = (position: string | number) => {
     return this.mapping[position] ? this.mapping[position] : "";
   };
 
-  const possibleKnightMoves = coordinatesInput => {
+  const possibleKnightMoves = (coordinatesInput: string) => {
     if (!coordinatesInput || coordinatesInput.length < 2) {
       return [];
     }
 
     const positionArray = coordinatesInput.split("");
-    const x = parseInt(positionArray[0], 10);
-    const y = parseInt(positionArray[1], 10);
-    const xPositions = [x + 2, x - 2, x + 1, x - 1].filter(c => c >= 0 && c < 8);
-    const yPositions = [y + 2, y - 2, y + 1, y - 1].filter(c => c >= 0 && c < 8);
+    const x: number = parseInt(positionArray[0], 10);
+    const y: number = parseInt(positionArray[1], 10);
+    const xPositions: number[] = [x + 2, x - 2, x + 1, x - 1].filter(c => c >= 0 && c < 8);
+    const yPositions: number[] = [y + 2, y - 2, y + 1, y - 1].filter(c => c >= 0 && c < 8);
 
-    const coordinates = [];
+    const coordinates: number[][] = [];
 
     for (let i = 0; i < xPositions.length; i += 1) {
       for (let j = 0; j < yPositions.length; j += 1) {
@@ -59,8 +59,8 @@ function ChessService(Storage) {
     return coordinates;
   };
 
-  const convertCoordinatesToPosition = knightMoves => {
-    const positions = [];
+  const convertCoordinatesToPosition = (knightMoves: number[][]) => {
+    const positions: string[] = [];
     for (let i = 0; i < knightMoves.length; i += 1) {
       const move = knightMoves[i];
       positions.push(this.board[move[0]][move[1]]);
@@ -74,25 +74,46 @@ function ChessService(Storage) {
     return convertCoordinatesToPosition(knightMoves);
   };
 
-  const resolveKnightMoves = position => {
-    const result = {};
+  const resolveKnightMoves = async (position: string) => {
+    interface Result {
+      position: string;
+      first_turn: string[];
+      second_turn: string[];
+    }
+
+    const result: Result = {
+      position: "",
+      first_turn: [],
+      second_turn: [],
+    };
+
+    const foundSavedMove: Result = await Storage.findPossibleMoves(position);
+    if (foundSavedMove && foundSavedMove.position) {
+      return foundSavedMove;
+    }
+
     const movesFirstTurn = calculateMovesPerTurn(position);
     result.position = position;
     result.first_turn = movesFirstTurn;
-    const movesSecondTurn = [];
 
+    let set: any = new Set();
+    let uniquePositions: string[] = [];
     for (let i = 0; i < movesFirstTurn.length; i += 1) {
-      movesSecondTurn.push(calculateMovesPerTurn(movesFirstTurn[i]));
+      uniquePositions.push(...calculateMovesPerTurn(movesFirstTurn[i]));
+      set.add(uniquePositions);
     }
-    const uniquePositions = [...new Set([].concat(...movesSecondTurn))];
-    result.second_turn = uniquePositions;
+    const secondTurn: string[][] = Array.from(set);
+
+    if (secondTurn.length > 0) {
+      result.second_turn = secondTurn[0];
+    }
 
     Storage.insertPossibleMoves(result);
 
     return result;
   };
 
-  const validatePosition = position => {
+  const validatePosition = (position: string) => {
     const re = new RegExp("[A-H]{1}[1-8]{1}");
     if (re.exec(position)) {
       return true;
@@ -117,5 +138,3 @@ function ChessService(Storage) {
     generateChessBoard,
   };
 }
-
-module.exports = ChessService;

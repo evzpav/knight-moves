@@ -58,7 +58,7 @@ run-docker: build-image ## run server on docker
 run: ## run locally
 	PORT=$(PORT) \
 	MONGO_URL=$(MONGO_URL) \
-	node ./server/server.js
+	ts-node server/server.ts
 
 lint: ## format code
 	cd ./client && npm run format
