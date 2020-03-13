@@ -31,7 +31,7 @@ const server = app.listen(config.port, "localhost", 1, (err: any) => {
     console.error("Could not initiate express server: ", err);
     process.exit(1);
   }
-  console.info(`App listening on port ${config.port}; http://localhost:${config.port}`);
+  console.info(`App listening on port ${config.port}: http://localhost:${config.port}`);
 });
 
 const stop = (): void => {

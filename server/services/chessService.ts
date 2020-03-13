@@ -116,10 +116,7 @@ export const ChessService = (Storage: any): any => {
 
   const validatePosition = (position: string): boolean => {
     const re = new RegExp("[A-H]{1}[1-8]{1}");
-    if (re.exec(position)) {
-      return true;
-    }
-    return false;
+    return re.test(position);
   };
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type

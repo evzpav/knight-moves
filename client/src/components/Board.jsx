@@ -49,19 +49,15 @@ class Board extends React.Component {
   }
 
   boardFooter() {
-    const footer = [];
     const xAxis = JSON.parse(JSON.stringify(this.xAxis));
     xAxis.push("");
-    xAxis.forEach(val => {
-      // eslint-disable-next-line react/jsx-filename-extension
-      footer.push(
+    return xAxis.map(val => {
+      return (
         <button type="button" className="info-square">
           {val}
-        </button>,
+        </button>
       );
     });
-
-    return footer;
   }
 
   renderBoard() {
